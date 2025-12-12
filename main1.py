@@ -1,4 +1,3 @@
-import streamlit as st
 from data import init_feedback_db, init_sentiment_db
 from login import run_login
 from dashboard import run_dashboard
@@ -10,7 +9,7 @@ def main():
     init_feedback_db()
     init_sentiment_db()
 
-    st.title("Feedback Analyzer")
+    
     # Step 1: Run login page
     user = run_login()   # should return user info or True if login success
 
@@ -24,5 +23,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 

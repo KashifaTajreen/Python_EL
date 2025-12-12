@@ -4,11 +4,13 @@ from login import run_login
 from dashboard import run_dashboard
 from gui import run_gui
 
-# Initialize databases
-init_feedback_db()
-init_sentiment_db()
-
 def main():
+
+    # Initialize databases
+    init_feedback_db()
+    init_sentiment_db()
+
+    st.title("Feedback Analyzer")
     # Step 1: Run login page
     user = run_login()   # should return user info or True if login success
 
@@ -22,4 +24,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 

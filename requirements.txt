@@ -1,5 +1,4 @@
 textblob
-tkinter 
 sqlite3
 bcrypt
 

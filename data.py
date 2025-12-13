@@ -79,13 +79,13 @@ def validate_login(email, password):
        # return bcrypt.checkpw(password.encode('utf-8'), stored_hash.encode('utf-8'))
     #return False
 
-def insert_feedback(reviewer_name, reviewer_ID, session_name, session_ID, score, comment):
+def insert_feedback(reviewer_name, reviewer_ID, score, comment):
     conn = sqlite3.connect("feedback.db")
     cursor = conn.cursor()
     cursor.execute("""
-    INSERT INTO feedback (reviewer_name, reviewer_ID, session_name, session_ID, score, comment)
+    INSERT INTO feedback (reviewer_name, reviewer_ID, score, comment)
     VALUES (?, ?, ?, ?, ?, ?)
-    """, (reviewer_name, reviewer_ID, session_name, session_ID, score, comment))
+    """, (reviewer_name, reviewer_ID, score, comment))
     conn.commit()
     conn.close()
 
@@ -124,6 +124,7 @@ def run_gui(session):
 
     window.mainloop()
  
+
 
 
 

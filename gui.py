@@ -76,7 +76,8 @@ def run_gui(parent_root,session):
         insert_sentiment(session['name'], session['id'], sentiment_score)
 
         messagebox.showinfo('Success', 'Feedback submitted successfully! Thank you. 💖')
-        root.destroy() 
+        #root.destroy()
+        form_window.destroy()
 
     # Submit Button with the baby pink color
     tk.Button(frame, text="Submit Feedback", bg=btn_color, fg=text_color, 

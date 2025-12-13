@@ -1,4 +1,4 @@
-import tkinter as tk
+"""import tkinter as tk
 from tkinter import messagebox
 
 def run_gui(session):
@@ -52,4 +52,5 @@ def run_gui(session):
 
   tk.Button(frame, text='Submit', fg='#FFFFFF', bg='#FF3399', command=submit_feedback, font=("Arial", 14, "bold")).grid(row=7, column=1, pady=20)
 
-  root.mainloop()
+  root.mainloop()"""
+

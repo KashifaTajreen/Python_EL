@@ -84,9 +84,9 @@ def run_gui(parent_root,session):
               font=("Arial", 14, "bold"), command=submit_feedback).grid(row=6, column=0, columnspan=2, pady=30, ipadx=10)
 
    #root.mainloop()
-   root.transient(parent_root)
-   root.grab_set()
-   parent_root.wait_window(root)
+        root.transient(parent_root)
+        root.grab_set()
+        parent_root.wait_window(root)
 
     
 

@@ -5,7 +5,7 @@ from data import create_account, email_exists
 def open_create_account_window():
     window = tk.Toplevel()
     window.title("Create New Account")
-    window.geometry("500x350")
+    window.geometry("800x600")
     
     # --- BABY PINK & COZY THEME ---
     bg_color = "#FFF0F5"   # Lavender Blush (Very light baby pink)

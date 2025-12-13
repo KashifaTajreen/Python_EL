@@ -35,7 +35,7 @@ def init_users_db():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         email TEXT PRIMARY KEY,
-        passwords TEXT
+        password TEXT
     )
     """)
     conn.commit()
@@ -124,5 +124,6 @@ def run_gui(session):
 
     window.mainloop()
  
+
 
 

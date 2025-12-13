@@ -1,4 +1,4 @@
-import tkinter as tk
+"""import tkinter as tk
 from gui import run_gui   # <-- import your feedback GUI function
 
 def open_feedback_form(session):
@@ -33,4 +33,4 @@ for i, session in enumerate(sessions):
               command=lambda s=session: open_feedback_form(s),
               bg="white", fg="#FF3399", font=("Arial", 10, "bold")).pack(pady=5)
 
-root.mainloop()
+root.mainloop()"""

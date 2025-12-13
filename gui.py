@@ -6,6 +6,9 @@ def run_gui(parent_root,session):
     root = tk.Toplevel(parent_root)
     root.title(f"Feedback Form for {session['name']}")
     root.geometry("800x600")
+    root.transient(parent_root)
+    root.grab_set()
+    parent_root.wait_window(root)
 
     # --- BABY PINK & COZY THEME ---
     bg_color = "#FFF0F5"   # Lavender Blush (Very light baby pink)
@@ -84,9 +87,9 @@ def run_gui(parent_root,session):
               font=("Arial", 14, "bold"), command=submit_feedback).grid(row=6, column=0, columnspan=2, pady=30, ipadx=10)
 
    #root.mainloop()
-        root.transient(parent_root)
+       ''' root.transient(parent_root)
         root.grab_set()
-        parent_root.wait_window(root)
+        parent_root.wait_window(root)'''
 
     
 

@@ -3,14 +3,14 @@ from gui import run_gui
 from analysis_view import run_analysis_view # Import the new analysis view
 
 # Define the function to transition from Dashboard to Feedback Form
-def open_feedback_form(root, session):
-    root.withdraw()  # Close dashboard window
+def open_feedback_form(dashboard_root, session):
+    #root.withdraw()  # Close dashboard window
     run_gui(root,session) # Open the feedback form
-    root.deiconify()
+    #root.deiconify()
    
 def run_dashboard(user_email):
-    root = tk.Tk()
-    root.title("Session Dashboard")
+    dashboard_root = tk.Tk()
+    dashboard_root.title("Session Dashboard")
     root.geometry("800x600")
     
     # --- NEW COLOR PALETTE (CONSISTENT VARIABLE NAMES) ---

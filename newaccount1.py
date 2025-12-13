@@ -42,7 +42,7 @@ def open_create_account_window():
 
         if password != confirm_password:
             messagebox.showerror('Error', 'Passwords do not match.')
-            return'''
+            return
 
         # Check if email already exists
         conn = sqlite3.connect("users.db")
@@ -64,6 +64,7 @@ def open_create_account_window():
             window.destroy()
 
     tk.Button(frame, text='Create account', fg='#FFFFFF', bg='#FF3399',
-              command=submit_create_account, font=("Arial", 14, "bold")).grid(row=4, column=1, pady=20)
+              command=submit_create_account, font=("Arial", 14, "bold")).grid(row=4, column=1, pady=20)'''
+
 
 

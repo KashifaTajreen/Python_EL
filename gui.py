@@ -5,7 +5,7 @@ from tkinter import messagebox
 def run_gui(session):
     root = tk.Tk()
     root.title(f"Feedback Form for {session['name']}")
-    root.geometry("700x550")
+    root.geometry("800x600")
 
     # --- BABY PINK & COZY THEME ---
     bg_color = "#FFF0F5"   # Lavender Blush (Very light baby pink)

@@ -68,7 +68,7 @@ def run_gui(session):
         from analysis import analyze_sentiment
         
         # --- CRITICAL FIX ---
-        # Passing all 6 arguments, including session details, to the database function
+        # Passing all 4 arguments, including session details, to the database function
         insert_feedback(reviewer_name, reviewer_ID, score_int, comment)
         
         # Analyze Sentiment

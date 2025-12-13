@@ -2,7 +2,7 @@
 from tkinter import messagebox
 from newaccount import open_create_account_window  # Import function from other file
 
-from data import init_users_db, email_exists, create_account, validate_login
+from data import init_users_db, email_exists, createaccount, validate_login
 
 init_users_db()
 #Global variable to store the logged in user
@@ -54,4 +54,5 @@ tk.Button(frame, text='Create account', fg='#FFFFFF', bg='#FF3399',
           command=open_create_account_window, font=("Arial", 14, "bold")).grid(row=4, column=1, pady=20)
 
 root.mainloop()'''
+
 

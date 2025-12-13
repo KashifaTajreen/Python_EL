@@ -5,7 +5,7 @@ from analysis_view import run_analysis_view # Import the new analysis view
 # Define the function to transition from Dashboard to Feedback Form
 def open_feedback_form(root, session):
     root.withdraw()  # Close dashboard window
-    run_gui(session) # Open the feedback form
+    run_gui(root,session) # Open the feedback form
     root.deiconify()
    
 def run_dashboard(user_email):

@@ -2,8 +2,8 @@ import tkinter as tk
 from tkinter import messagebox
 
 # The run_gui function MUST accept the 'session' dictionary
-def run_gui(session):
-    root = tk.Tk()
+def run_gui(parent_root,session):
+    root = tk.Toplevel(parent_root)
     root.title(f"Feedback Form for {session['name']}")
     root.geometry("800x600")
 
@@ -83,6 +83,11 @@ def run_gui(session):
               activebackground=highlight_color, activeforeground=text_color,
               font=("Arial", 14, "bold"), command=submit_feedback).grid(row=6, column=0, columnspan=2, pady=30, ipadx=10)
 
-    root.mainloop()
+   #root.mainloop()
+   root.transient(parent_root)
+   root.grab_set()
+   parent_root.wait_window(root)
+
+    
 
 # Note: The imported run_gui in main1.py calls this function

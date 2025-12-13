@@ -41,39 +41,12 @@ def init_users_db():
     conn.commit()
     conn.close()
 
-def insert_feedback(reviewer_name, reviewer_ID, session_name, session_ID, score, comment):
-    conn = sqlite3.connect("feedback.db")
-    cursor = conn.cursor()
-    cursor.execute("""
-    INSERT INTO feedback (reviewer_name, reviewer_ID, session_name, session_ID, score, comment)
-    VALUES (?, ?, ?, ?, ?, ?)
-    """, (reviewer_name, reviewer_ID, session_name, session_ID, score, comment))
-    conn.commit()
-    conn.close()
-
-def insert_sentiment(session_name, session_ID, overall_sentiment):
-    conn = sqlite3.connect("sentiment.db")
-    cursor = conn.cursor()
-    cursor.execute("""
-    INSERT INTO feedback (session_name, session_ID, overall_sentiment)
-    VALUES (?, ?, ?)
-    """, (session_name, session_ID, overall_sentiment))
-    conn.commit()
-    conn.close()
-
 def insert_new_user(email,password):
     conn = sqlite3.connect()
     cursor = conn.cursor()
     cursor.execute("""
     INSERT INTO users (email,password) VALUES (?,?)
     """,(email,password))
-
-def get_comments_for_session(session_ID):
-    conn = sqlite3.connect("feedback.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT comment FROM feedback WHERE session_ID = ?", (session_ID,))
-    comments = [row[0] for row in cursor.fetchall()]
-    conn.close()
 
 def email_exists(email):
     conn = sqlite3.connect("users.db")
@@ -100,8 +73,40 @@ def validate_login(email, password):
 
     if result:
         stored_hash = result[0]
-        return bcrypt.checkpw(password.encode('utf-8'), stored_hash.encode('utf-8'))
-    return False
+        if bcrypt.checkpw(password.encode('utf-8'),stored_hash.encode('utf-8')):
+            return True
+        return False
+       # return bcrypt.checkpw(password.encode('utf-8'), stored_hash.encode('utf-8'))
+    #return False
+
+def insert_feedback(reviewer_name, reviewer_ID, session_name, session_ID, score, comment):
+    conn = sqlite3.connect("feedback.db")
+    cursor = conn.cursor()
+    cursor.execute("""
+    INSERT INTO feedback (reviewer_name, reviewer_ID, session_name, session_ID, score, comment)
+    VALUES (?, ?, ?, ?, ?, ?)
+    """, (reviewer_name, reviewer_ID, session_name, session_ID, score, comment))
+    conn.commit()
+    conn.close()
+
+def insert_sentiment(session_name, session_ID, overall_sentiment):
+    conn = sqlite3.connect("sentiment.db")
+    cursor = conn.cursor()
+    cursor.execute("""
+    INSERT INTO feedback (session_name, session_ID, overall_sentiment)
+    VALUES (?, ?, ?)
+    """, (session_name, session_ID, overall_sentiment))
+    conn.commit()
+    conn.close()
+
+def get_comments_for_session(session_ID):
+    conn = sqlite3.connect("feedback.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT comment FROM feedback WHERE session_ID = ?", (session_ID,))
+    comments = [row[0] for row in cursor.fetchall()]
+    conn.close()
+    return comments
+
 
 def run_gui(session):
     window = tk.Tk()
@@ -119,4 +124,5 @@ def run_gui(session):
 
     window.mainloop()
  
+
 

@@ -11,7 +11,7 @@ def open_feedback_form(dashboard_root, session):
 def run_dashboard(user_email):
     dashboard_root = tk.Tk()
     dashboard_root.title("Session Dashboard")
-    root.geometry("800x600")
+    dashboard_root.geometry("800x600")
     
     # --- NEW COLOR PALETTE (CONSISTENT VARIABLE NAMES) ---
     BG_COLOR = "#F5F5F5"      # Main Background (Light Grey)

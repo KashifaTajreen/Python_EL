@@ -32,7 +32,7 @@ def run_dashboard(user_email):
     frame = tk.Frame(root, bg=bg_color)
     frame.pack(pady=20)
 
-    for i, session in enumerate(sessions):
+    """for i, session in enumerate(sessions):
         # Create a "Card" for each session
         card = tk.Frame(frame, bg="#FFF0F5", bd=2, relief="groove") # LavenderBlush background
         card.grid(row=i // 2, column=i % 2, padx=20, pady=20, ipadx=10, ipady=10)
@@ -47,4 +47,34 @@ def run_dashboard(user_email):
                   command=lambda s=session: open_feedback_form(root, s)).pack(pady=10)
 
     root.mainloop()
-    return True # Just to satisfy main1 logic
+    return True # Just to satisfy main1 logic"""
+    # ... inside run_dashboard(user_email):
+# Import analysis_view at the top of dashboard.py
+from analysis_view import run_analysis_view 
+# ...
+
+    for i, session in enumerate(sessions):
+        # Create a "Card" for each session
+        card = tk.Frame(frame, bg="#F0E6F0", bd=1, relief="solid") 
+        card.grid(row=i // 2, column=i % 2, padx=30, pady=20, ipadx=15, ipady=15)
+
+        tk.Label(card, text=session['name'], font=("Arial", 14, "bold"), 
+                 bg="#F0E6F0", fg=text_color).pack(pady=(5, 2))
+        
+        tk.Label(card, text=session['date'], font=("Arial", 10), 
+                 bg="#F0E6F0", fg="#555555").pack(pady=5)
+
+        # BUTTON 1: GIVE FEEDBACK
+        tk.Button(card, text="Give Feedback 📝", bg=btn_color, fg=text_color, 
+                  activebackground=bg_color, activeforeground=text_color,
+                  font=("Arial", 11, "bold"),
+                  command=lambda s=session: open_feedback_form(root, s)).pack(pady=(10, 5))
+
+        # BUTTON 2: VIEW ANALYSIS (New)
+        tk.Button(card, text="View Analysis 📈", bg="#E0BBE4", fg=text_color, # Lilac button
+                  activebackground=bg_color, activeforeground=text_color,
+                  font=("Arial", 11, "bold"),
+                  command=lambda s=session: run_analysis_view(root, s)).pack(pady=(5, 10))
+
+    root.mainloop()
+    # ...

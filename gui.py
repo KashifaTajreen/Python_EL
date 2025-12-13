@@ -2,10 +2,10 @@ import tkinter as tk
 from tkinter import messagebox
 
 # The run_gui function MUST accept the 'session' dictionary
-def run_gui(parent_root,session):
+def run_gui(dashboard_root,session):
     root = tk.Toplevel(parent_root)
-    root.title(f"Feedback Form for {session['name']}")
-    root.geometry("800x600")
+    form_window.title(f"Feedback Form for {session['name']}")
+    form_window.geometry("800x600")
 
     # --- BABY PINK & COZY THEME ---
     bg_color = "#FFF0F5"   # Lavender Blush (Very light baby pink)
@@ -13,7 +13,7 @@ def run_gui(parent_root,session):
     text_color = "#4B0082" # Indigo/Dark Purple (Cozy contrast)
     highlight_color = "#E0BBE4" # Lilac/Muted Pink for borders
 
-    root.configure(bg=bg_color)
+    form_window.configure(bg=bg_color)
 
     # Frame for content
     frame = tk.Frame(root, bg=bg_color, bd=2, relief="groove")
@@ -43,8 +43,13 @@ def run_gui(parent_root,session):
              bg=bg_color, fg=text_color).grid(row=5, column=0, padx=10, pady=10, sticky="e")
     comment_text_widget = tk.Text(frame, width=30, height=5, font=("Arial", 11), bg="#FFFFFF", bd=1, relief="solid")
     comment_text_widget.grid(row=5, column=1, padx=10, pady=10, sticky="w")
+
+    form_window.transient(parent_root)
+    form_window.grab_set()
+    parent_root.wait_window(form_window)
     
-    def submit_feedback(form_window,session,email_entry,score_entry,comment_text_widget):
+    
+    def submit_feedback(form_window_to_close,session,email_entry,score_entry,comment_text_widget):
         # Get data from entry widgets
         reviewer_name = entries["Reviewer Name"].get()
         reviewer_ID = entries["Reviewer ID"].get()
@@ -77,17 +82,17 @@ def run_gui(parent_root,session):
 
         messagebox.showinfo('Success', 'Feedback submitted successfully! Thank you. 💖')
         #root.destroy()
-        form_window.destroy()
+        form_window_to_close.destroy()
 
     # Submit Button with the baby pink color
     tk.Button(frame, text="Submit Feedback", bg=btn_color, fg=text_color, 
               activebackground=highlight_color, activeforeground=text_color,
-              font=("Arial", 14, "bold"), command=lambda:submit_feedback(root,session,email_entry,score_entry,comment_text_widget)).grid(row=6, column=0, columnspan=2, pady=30, ipadx=10)
+              font=("Arial", 14, "bold"), command=lambda:submit_feedback(form_window,session,email_entry,score_entry,comment_text_widget)).grid(row=6, column=0, columnspan=2, pady=30, ipadx=10)
 
    #root.mainloop()
-    root.transient(parent_root)
+    '''root.transient(parent_root)
     root.grab_set()
-    parent_root.wait_window(root)
+    parent_root.wait_window(root)'''
 
     
 

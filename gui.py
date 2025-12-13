@@ -44,7 +44,7 @@ def run_gui(parent_root,session):
     comment_text_widget = tk.Text(frame, width=30, height=5, font=("Arial", 11), bg="#FFFFFF", bd=1, relief="solid")
     comment_text_widget.grid(row=5, column=1, padx=10, pady=10, sticky="w")
     
-    def submit_feedback():
+    def submit_feedback(form_window,session,email_entry,score_entry,comment_text_widget):
         # Get data from entry widgets
         reviewer_name = entries["Reviewer Name"].get()
         reviewer_ID = entries["Reviewer ID"].get()
@@ -82,7 +82,7 @@ def run_gui(parent_root,session):
     # Submit Button with the baby pink color
     tk.Button(frame, text="Submit Feedback", bg=btn_color, fg=text_color, 
               activebackground=highlight_color, activeforeground=text_color,
-              font=("Arial", 14, "bold"), command=submit_feedback).grid(row=6, column=0, columnspan=2, pady=30, ipadx=10)
+              font=("Arial", 14, "bold"), command=lambda:submit_feedback(root,session,email_entry,score_entry,comment_text_widget)).grid(row=6, column=0, columnspan=2, pady=30, ipadx=10)
 
    #root.mainloop()
     root.transient(parent_root)

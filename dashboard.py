@@ -53,7 +53,7 @@ def run_dashboard(user_email):
 from analysis_view import run_analysis_view 
 # ...
 
-    for i, session in enumerate(sessions):
+for i, session in enumerate(sessions):
         # Create a "Card" for each session
         card = tk.Frame(frame, bg="#F0E6F0", bd=1, relief="solid") 
         card.grid(row=i // 2, column=i % 2, padx=30, pady=20, ipadx=15, ipady=15)
@@ -76,5 +76,5 @@ from analysis_view import run_analysis_view
                   font=("Arial", 11, "bold"),
                   command=lambda s=session: run_analysis_view(root, s)).pack(pady=(5, 10))
 
-    root.mainloop()
+root.mainloop()
     # ...

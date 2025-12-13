@@ -3,6 +3,7 @@ from tkinter import messagebox
 import bcrypt
 import sqlite3
 
+sqlite3.connect("users.db")
 def open_create_account_window():
     window = tk.Toplevel()
     window.title('Create Account')
@@ -64,3 +65,4 @@ def open_create_account_window():
 
     tk.Button(frame, text='Create account', fg='#FFFFFF', bg='#FF3399',
               command=submit_create_account, font=("Arial", 14, "bold")).grid(row=4, column=1, pady=20)
+

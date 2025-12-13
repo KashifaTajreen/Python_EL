@@ -29,7 +29,7 @@ def run_login():
 
     # Title with Flowers
     tk.Label(frame, text="🌸 Login 🌸", font=("Arial", 28, "bold"), 
-             bg=bg_color, fg="#FF1493").grid(row=0, column=0, columnspan=2, pady=20)
+             bg=bg_color, fg="#000000").grid(row=0, column=0, columnspan=2, pady=20)
 
     tk.Label(frame, text="Email", bg=bg_color, fg=text_color, 
              font=("Arial", 14, "bold")).grid(row=1, column=0, padx=10, pady=10, sticky='w')

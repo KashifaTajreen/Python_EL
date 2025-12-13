@@ -1,4 +1,4 @@
-import tkinter as tk
+"""import tkinter as tk
 from gui import run_gui 
 
 def open_feedback_form(root, session):
@@ -32,7 +32,7 @@ def run_dashboard(user_email):
     frame = tk.Frame(root, bg=bg_color)
     frame.pack(pady=20)
 
-    """for i, session in enumerate(sessions):
+    '''for i, session in enumerate(sessions):
         # Create a "Card" for each session
         card = tk.Frame(frame, bg="#FFF0F5", bd=2, relief="groove") # LavenderBlush background
         card.grid(row=i // 2, column=i % 2, padx=20, pady=20, ipadx=10, ipady=10)
@@ -47,7 +47,7 @@ def run_dashboard(user_email):
                   command=lambda s=session: open_feedback_form(root, s)).pack(pady=10)
 
     root.mainloop()
-    return True # Just to satisfy main1 logic"""
+    return True # Just to satisfy main1 logic'''
     # ... inside run_dashboard(user_email):
 # Import analysis_view at the top of dashboard.py
 from analysis_view import run_analysis_view 
@@ -76,5 +76,5 @@ for i, session in enumerate(sessions):
                   font=("Arial", 11, "bold"),
                   command=lambda s=session: run_analysis_view(root, s)).pack(pady=(5, 10))
 
-root.mainloop()
+root.mainloop()"""
     # ...

@@ -84,7 +84,7 @@ def insert_feedback(reviewer_name, reviewer_ID, score, comment):
     cursor = conn.cursor()
     cursor.execute("""
     INSERT INTO feedback (reviewer_name, reviewer_ID, score, comment)
-    VALUES (?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?)
     """, (reviewer_name, reviewer_ID, score, comment))
     conn.commit()
     conn.close()
@@ -124,6 +124,7 @@ def run_gui(session):
 
     window.mainloop()
  
+
 
 
 

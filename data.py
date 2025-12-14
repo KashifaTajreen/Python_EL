@@ -89,7 +89,7 @@ def insert_feedback(reviewer_name, reviewer_ID, score, comment):
     conn.commit()
     conn.close()
 
-def insert_sentiment(session_name,session_ID,overall_sentiment):
+def insert_sentiment(session_name,session_id,overall_sentiment):
     conn = sqlite3.connect("sentiment.db")
     cursor = conn.cursor()
     cursor.execute("""
@@ -155,6 +155,7 @@ def run_gui(session):
 
     window.mainloop()
  
+
 
 
 

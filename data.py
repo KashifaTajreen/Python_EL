@@ -127,7 +127,7 @@ def get_session_summary(session_id):
         'avg_sentiment': avg_sentiment if avg_sentiment is not None else 0.0
     }
 
-def get_comments_for_session(session_name):
+def get_comments_for_session(session_id):
     """Retrieves all comments and scores for a session."""
     conn = sqlite3.connect("feedback.db")
     cursor = conn.cursor()
@@ -156,6 +156,7 @@ def run_gui(session):
 
     window.mainloop()
  
+
 
 
 

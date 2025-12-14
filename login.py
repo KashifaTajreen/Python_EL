@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from newaccount import open_create_account_window
 from data import init_users_db, validate_login
+from dashboard import run_dashboard
 
 # Initialize DB when this file loads
 init_users_db()
@@ -54,7 +55,8 @@ def run_login():
         if validate_login(email, password):
             messagebox.showinfo("Success", f"Welcome back, {email}! 🌺")
             logged_in_user = email # Save user
-            root.withdraw()         # Close window to proceed to dashboard
+            root.withdraw() # Close window to proceed to dashboard
+            run_dashboard(root,email)
         else:
             messagebox.showerror("Error", "Invalid email or password.")
 
@@ -68,4 +70,4 @@ def run_login():
     root.mainloop()
     
     # Return the user back to main1.py
-    return logged_in_user
+    #return logged_in_user

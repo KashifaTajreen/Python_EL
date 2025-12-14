@@ -70,10 +70,11 @@ def run_analysis_view(root, session):
     score_bar.pack(pady=5)
     score_bar["value"] = avg_score
 
-    # ---- SENTIMENT INTERPRETATION ----
-    if avg_sentiment > 0.2:
+    # ---- SENTIMENT INTERPRETATION ---
+    # ---- SENTIMENT INTERPRETATION (SCORE-AWARE) ----
+    if avg_score >= 7:
       sentiment_text = "😊 Positive Feedback"
-    elif avg_sentiment < -0.2:
+    elif avg_score <= 4:
       sentiment_text = "😟 Negative Feedback"
     else:
       sentiment_text = "😐 Neutral Feedback"
@@ -105,3 +106,30 @@ def run_analysis_view(root, session):
     vsb = ttk.Scrollbar(comments_frame, orient="vertical", command=tree.yview)
     vsb.pack(side='right', fill='y')
     tree.configure(yscrollcommand=vsb.set)
+
+def create_score_distribution(frame, scores):
+    canvas = tk.Canvas(frame, width=500, height=250, bg="white", highlightthickness=1)
+    canvas.pack(pady=15)
+
+    canvas.create_text(250, 15, text="Score Distribution", font=("Helvetica", 13, "bold"))
+
+    max_count = max(scores.values()) if scores else 1
+
+    bar_width = 25
+    spacing = 15
+    x_start = 30
+    y_base = 220
+    max_height = 160
+
+    for i in range(1, 11):
+        count = scores.get(i, 0)
+        height = (count / max_count) * max_height if max_count else 0
+
+        x1 = x_start + (i - 1) * (bar_width + spacing)
+        y1 = y_base - height
+        x2 = x1 + bar_width
+        y2 = y_base
+
+        canvas.create_rectangle(x1, y1, x2, y2, fill="#4CAF50")
+        canvas.create_text(x1 + bar_width / 2, y_base + 10, text=str(i), font=("Helvetica", 9))
+        canvas.create_text(x1 + bar_width / 2, y1 - 8, text=str(count), font=("Helvetica", 9))

@@ -15,7 +15,7 @@ def open_feedback_form(parent, session):
     #root.deiconify()
    
 def run_dashboard(user_email):
-    dashboard_root = tk.Tk()
+    dashboard_root = tk.Toplevel()
     dashboard_root.title("Session Dashboard")
     dashboard_root.geometry("800x600")
     

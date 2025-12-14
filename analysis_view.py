@@ -98,7 +98,7 @@ def run_analysis_view(root, session):
     canvas = tk.Canvas(comments_frame, height=200)
     scrollable_frame = ttk.Frame(canvas)
 
-    scrollable_frame.bind( "<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+    scrollable_frame.bind( "<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
 
     canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
     canvas.configure(yscrollcommand=scrollbar.set)

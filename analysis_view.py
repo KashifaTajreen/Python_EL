@@ -1,0 +1,81 @@
+import tkinter as tk
+from tkinter import ttk
+from data import get_session_summary, get_comments_for_session
+
+def create_bar_graph(frame, score, sentiment):
+    """Creates a simple bar graph on a Tkinter Canvas."""
+    canvas = tk.Canvas(frame, width=400, height=200, bg="white", highlightthickness=1, highlightbackground="gray")
+    canvas.pack(pady=10)
+
+    # Calculate heights (Score is out of 5, Sentiment is out of 1.0)
+    score_norm = (score / 5.0) if score <= 5 else 1.0  # Normalize to 1.0
+    sentiment_norm = (sentiment + 1.0) / 2.0 if -1.0 <= sentiment <= 1.0 else 0.5 # Normalize to 0.0-1.0 range
+
+    # Canvas dimensions
+    bar_width = 80
+    gap = 100
+    y_max = 180
+    y_start = 190
+    
+    # --- Score Bar ---
+    score_height = y_max * score_norm
+    canvas.create_rectangle(50, y_start - score_height, 50 + bar_width, y_start, fill="#4CAF50")
+    canvas.create_text(90, 10, text="Feedback Analysis", font=("Helvetica", 12, "bold"))
+    canvas.create_text(90, y_start - score_height - 10, text=f"{score:.1f}", font=("Helvetica", 10))
+    canvas.create_text(90, y_start + 10, text="Avg Score (out of 5)", font=("Helvetica", 9))
+
+    # --- Sentiment Bar ---
+    sentiment_height = y_max * sentiment_norm
+    canvas.create_rectangle(50 + gap, y_start - sentiment_height, 50 + gap + bar_width, y_start, fill="#2196F3")
+    canvas.create_text(90 + gap, y_start - sentiment_height - 10, text=f"{sentiment:.2f}", font=("Helvetica", 10))
+    canvas.create_text(90 + gap, y_start + 10, text="Avg Sentiment (-1 to 1)", font=("Helvetica", 9))
+
+def run_analysis_view(root, session_id):
+    """Sets up the window to display analysis for a specific session."""
+    
+    # 1. Fetch Data
+    summary = get_session_summary(session_id)
+    comments = get_comments_for_session(session_id)
+
+    # 2. Create Window
+    analysis_window = tk.Toplevel(root)
+    analysis_window.title(f"Analysis for Session: {session_id}")
+    analysis_window.geometry("800x700")
+
+    main_frame = ttk.Frame(analysis_window, padding="10")
+    main_frame.pack(fill='both', expand=True)
+
+    # 3. Display Summary (Text)
+    ttk.Label(main_frame, text=f"Session ID: {session_id}", font=("Helvetica", 16, "bold")).pack(pady=5)
+    
+    avg_score = summary.get('avg_score', 0.0)
+    avg_sentiment = summary.get('avg_sentiment', 0.0)
+
+    ttk.Label(main_frame, text=f"Average Score: {avg_score:.1f} / 5", font=("Helvetica", 12)).pack()
+    ttk.Label(main_frame, text=f"Average Sentiment: {avg_sentiment:.2f} (-1.0 to 1.0)", font=("Helvetica", 12)).pack()
+    
+    # 4. Display Graph
+    create_bar_graph(main_frame, avg_score, avg_sentiment)
+
+    # 5. Display Comments
+    ttk.Label(main_frame, text="\n--- Individual Feedback Comments ---", font=("Helvetica", 14, "bold")).pack(pady=10)
+
+    # Use a ScrolledText or Treeview for better display of comments
+    comments_frame = ttk.Frame(main_frame)
+    comments_frame.pack(fill='both', expand=True)
+
+    tree = ttk.Treeview(comments_frame, columns=('Score', 'Comment'), show='headings')
+    tree.heading('Score', text='Score')
+    tree.heading('Comment', text='Comment')
+    tree.column('Score', width=80, anchor='center')
+    tree.column('Comment', width=600, anchor='w')
+
+    for score, comment in comments:
+        tree.insert('', tk.END, values=(score, comment))
+
+    tree.pack(side='left', fill='both', expand=True)
+    
+    # Add a scrollbar
+    vsb = ttk.Scrollbar(comments_frame, orient="vertical", command=tree.yview)
+    vsb.pack(side='right', fill='y')
+    tree.configure(yscrollcommand=vsb.set)

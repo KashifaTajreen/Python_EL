@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from data import get_session_summary, get_comments_for_session
+from data import get_session_summary, get_comments_for_session,get_score_distribution
 
 def create_bar_graph(frame, score, sentiment):
     """Creates a simple bar graph on a Tkinter Canvas."""
@@ -38,6 +38,7 @@ def run_analysis_view(root, session):
     session_name=session['name']
     summary = get_session_summary(session_id)
     comments = get_comments_for_session(session_id)
+    
 
     # 2. Create Window
     analysis_window = tk.Toplevel(root)
@@ -46,6 +47,8 @@ def run_analysis_view(root, session):
 
     main_frame = ttk.Frame(analysis_window, padding="10")
     main_frame.pack(fill='both', expand=True)
+    score_counts=get_score_distribution(session_id)
+    create_score_distribution(main_frame,score_counts)
 
     # 3. Display Summary (Text)
     ttk.Label(main_frame, text=f"Session ID: {session_id}\n Session Name: {session_name}", font=("Helvetica", 16, "bold")).pack(pady=5)

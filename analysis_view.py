@@ -30,10 +30,11 @@ def create_bar_graph(frame, score, sentiment):
     canvas.create_text(90 + gap, y_start - sentiment_height - 10, text=f"{sentiment:.2f}", font=("Helvetica", 10))
     canvas.create_text(90 + gap, y_start + 10, text="Avg Sentiment (-1 to 1)", font=("Helvetica", 9))
 
-def run_analysis_view(root, session_id):
+def run_analysis_view(root, session):
     """Sets up the window to display analysis for a specific session."""
     
     # 1. Fetch Data
+    session_id=session['id']
     summary = get_session_summary(session_id)
     comments = get_comments_for_session(session_id)
 

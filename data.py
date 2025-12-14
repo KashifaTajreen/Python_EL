@@ -155,7 +155,19 @@ def run_gui(session):
     tk.Button(window, text="Submit", command=lambda: print("Feedback submitted")).pack(pady=20)
 
     window.mainloop()
+
+def get_score_distribution(session_id):
+    conn = sqlite3.connect("feedback.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT score, COUNT(*) FROM feedback WHERE session_id = ? GROUP BY score",
+        (session_id,)
+    )
+    rows = cursor.fetchall()
+    conn.close()
+    return {score: count for score, count in rows}
  
+
 
 
 

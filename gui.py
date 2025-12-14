@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 # The run_gui function MUST accept the 'session' dictionary
 def run_gui(dashboard_root,session):
-    root = tk.Toplevel(parent_root)
+    root = tk.Toplevel(dashboard_root)
     form_window.title(f"Feedback Form for {session['name']}")
     form_window.geometry("800x600")
 

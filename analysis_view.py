@@ -48,16 +48,40 @@ def run_analysis_view(root, session):
     main_frame.pack(fill='both', expand=True)
 
     # 3. Display Summary (Text)
-    ttk.Label(main_frame, text=f"Session ID: {session_id}", font=("Helvetica", 16, "bold")).pack(pady=5)
+    ttk.Label(main_frame, text=f"Session ID: {session_id}\n Session Name: {session_name}", font=("Helvetica", 16, "bold")).pack(pady=5)
     
     avg_score = summary.get('avg_score', 0.0)
     avg_sentiment = summary.get('avg_sentiment', 0.0)
 
-    ttk.Label(main_frame, text=f"Average Score: {avg_score:.1f} / 5", font=("Helvetica", 12)).pack()
+    ttk.Label(main_frame, text=f"Average Score: {avg_score:.1f} / 10", font=("Helvetica", 12,'bold')).pack(pady=5)
     ttk.Label(main_frame, text=f"Average Sentiment: {avg_sentiment:.2f} (-1.0 to 1.0)", font=("Helvetica", 12)).pack()
     
     # 4. Display Graph
-    create_bar_graph(main_frame, avg_score, avg_sentiment)
+    # ---- SCORE PROGRESS BAR ----
+    ttk.Label(main_frame, text="Overall Session Rating", font=("Helvetica", 13, "bold")).pack(pady=(10, 5))
+
+    score_bar = ttk.Progressbar(
+    main_frame,
+    orient="horizontal",
+    length=400,
+    mode="determinate",
+    maximum=10
+    )
+    score_bar.pack(pady=5)
+    score_bar["value"] = avg_score
+
+    # ---- SENTIMENT INTERPRETATION ----
+    if avg_sentiment > 0.2:
+      sentiment_text = "😊 Positive Feedback"
+    elif avg_sentiment < -0.2:
+      sentiment_text = "😟 Negative Feedback"
+    else:
+      sentiment_text = "😐 Neutral Feedback"
+
+    ttk.Label( main_frame,text=f"Overall Sentiment: {sentiment_text}",font=("Helvetica", 12)).pack(pady=5)
+    feedback_count = len(comments)
+
+    ttk.Label(main_frame,text=f"Total Responses: {feedback_count}",font=("Helvetica", 12)).pack(pady=5)
 
     # 5. Display Comments
     ttk.Label(main_frame, text="\n--- Individual Feedback Comments ---", font=("Helvetica", 14, "bold")).pack(pady=10)

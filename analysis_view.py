@@ -48,7 +48,7 @@ def run_analysis_view(root, session):
     main_frame = ttk.Frame(analysis_window, padding="10")
     main_frame.pack(fill='both', expand=True)
     score_counts=get_score_distribution(session_id)
-    create_score_distribution(graph_frame,score_counts)
+    create_score_distribution(main_frame,score_counts)
 
     # 3. Display Summary (Text)
     ttk.Label(main_frame, text=f"Session ID: {session_id}\n Session Name: {session_name}", font=("Helvetica", 16, "bold")).pack(pady=5)

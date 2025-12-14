@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from data import get_session_summary, get_comments_for_session,get_score_distribution
 
-def create_bar_graph(frame, score, sentiment):
+def create_bar_graph(main_frame, score, sentiment):
     """Creates a simple bar graph on a Tkinter Canvas."""
     canvas = tk.Canvas(frame, width=400, height=200, bg="white", highlightthickness=1, highlightbackground="gray")
     canvas.pack(pady=10)

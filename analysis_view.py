@@ -108,8 +108,8 @@ def run_analysis_view(root, session):
     
 
     for score, comment in comments:
-    text = f"Score: {score} | {comment}"
-    ttk.Label( scrollable_frame,text=text,wraplength=650,justify="left" ).pack(anchor="w", pady=5)
+      text = f"Score: {score} | {comment}"
+      ttk.Label( scrollable_frame,text=text,wraplength=650,justify="left" ).pack(anchor="w", pady=5)
 
 def create_score_distribution(parent, score_counts):
     canvas_width = 500

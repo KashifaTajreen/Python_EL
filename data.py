@@ -102,7 +102,7 @@ def insert_sentiment(session_name, session_ID, overall_sentiment):
 """def get_comments_for_session(session_ID):
     conn = sqlite3.connect("feedback.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT comment FROM feedback WHERE session_ID = ?", (session_ID,))
+    cursor.execute("SELECT comment FROM feedback WHERE session_id = ?", (session_ID,))
     comments = [row[0] for row in cursor.fetchall()]
     conn.close()
     return comments"""
@@ -114,16 +114,19 @@ def get_session_summary(session_ID):
     cursor_feedback = conn_feedback.cursor()
     
     # Calculate Average Score
-    cursor_feedback.execute("SELECT AVG(score) FROM feedback WHERE session_ID = ?", (session_ID,))
+    cursor_feedback.execute("SELECT AVG(score) FROM feedback WHERE session_id = ?", (session_ID,))
     avg_score = cursor_feedback.fetchone()[0]
-    conn_feedback.close()
+    #conn_feedback.close()
 
     conn_sentiment = sqlite3.connect("sentiment.db")
     cursor_sentiment = conn_sentiment.cursor()
     
     # Calculate Average Sentiment
-    cursor_sentiment.execute("SELECT AVG(overall_sentiment) FROM feedback WHERE session_ID = ?", (session_ID,))
+    cursor_sentiment.execute("SELECT AVG(overall_sentiment) FROM feedback WHERE session_id = ?", (session_ID,))
     avg_sentiment = cursor_sentiment.fetchone()[0]
+    #conn_sentiment.close()
+
+    conn_feedback.close()
     conn_sentiment.close()
 
     return {
@@ -135,7 +138,7 @@ def get_comments_for_session(session_ID):
     """Retrieves all comments and scores for a session."""
     conn = sqlite3.connect("feedback.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT score, comment FROM feedback WHERE session_ID = ?", (session_ID,))
+    cursor.execute("SELECT score, comment FROM feedback WHERE session_id = ?", (session_ID,))
     # Returns a list of tuples: [(score1, comment1), (score2, comment2), ...]
     comments_and_scores = cursor.fetchall() 
     conn.close()
@@ -160,6 +163,7 @@ def run_gui(session):
 
     window.mainloop()
  
+
 
 
 

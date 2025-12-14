@@ -4,8 +4,8 @@ from tkinter import messagebox
 # The run_gui function MUST accept the 'session' dictionary
 def run_gui(dashboard_root,session):
     root = tk.Toplevel(dashboard_root)
-    form_window.title(f"Feedback Form for {session['name']}")
-    form_window.geometry("800x600")
+    root.title(f"Feedback Form for {session['name']}")
+    root.geometry("800x600")
 
     # --- BABY PINK & COZY THEME ---
     bg_color = "#FFF0F5"   # Lavender Blush (Very light baby pink)
@@ -44,9 +44,9 @@ def run_gui(dashboard_root,session):
     comment_text_widget = tk.Text(frame, width=30, height=5, font=("Arial", 11), bg="#FFFFFF", bd=1, relief="solid")
     comment_text_widget.grid(row=5, column=1, padx=10, pady=10, sticky="w")
 
-    form_window.transient(parent_root)
+    '''form_window.transient(parent_root)
     form_window.grab_set()
-    parent_root.wait_window(form_window)
+    parent_root.wait_window(form_window)'''
     
     
     def submit_feedback(form_window_to_close,session,email_entry,score_entry,comment_text_widget):
@@ -87,12 +87,12 @@ def run_gui(dashboard_root,session):
     # Submit Button with the baby pink color
     tk.Button(frame, text="Submit Feedback", bg=btn_color, fg=text_color, 
               activebackground=highlight_color, activeforeground=text_color,
-              font=("Arial", 14, "bold"), command=lambda:submit_feedback(form_window,session,email_entry,score_entry,comment_text_widget)).grid(row=6, column=0, columnspan=2, pady=30, ipadx=10)
+              font=("Arial", 14, "bold"), command=lambda:submit_feedback(root,session,email_entry,score_entry,comment_text_widget)).grid(row=6, column=0, columnspan=2, pady=30, ipadx=10)
 
    #root.mainloop()
-    from_window.transient(dashboard_root)
-    form_window.grab_set()
-    dashboard_root.wait_window(form_window)
+    root.transient(dashboard_root)
+    root.grab_set()
+    dashboard_root.wait_window(root)
 
     
 

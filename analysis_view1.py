@@ -1,4 +1,4 @@
-import tkinter as tk
+'''import tkinter as tk
 from data import get_session_summary, get_comments_for_session
 from tkinter import ttk # Used for scrollbar
 
@@ -78,4 +78,4 @@ def run_analysis_view(parent_root, session):
     
     window.transient(parent_root) # Make it modal
     window.grab_set()
-    parent_root.wait_window(window)
+    parent_root.wait_window(window)'''

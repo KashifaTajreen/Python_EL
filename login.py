@@ -54,7 +54,7 @@ def run_login():
         if validate_login(email, password):
             messagebox.showinfo("Success", f"Welcome back, {email}! 🌺")
             logged_in_user = email # Save user
-            root.destroy()         # Close window to proceed to dashboard
+            root.withdraw()         # Close window to proceed to dashboard
         else:
             messagebox.showerror("Error", "Invalid email or password.")
 

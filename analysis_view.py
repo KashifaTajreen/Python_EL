@@ -47,11 +47,6 @@ def run_analysis_view(root, session):
 
     main_frame = ttk.Frame(analysis_window, padding="10")
     main_frame.pack(fill='both', expand=True)
-    graph_frame = ttk.Frame(main_frame)
-    graph_frame.pack(fill="x", pady=10)
-
-    comments_frame = ttk.Frame(main_frame)
-    comments_frame.pack(fill="both", expand=True, pady=10)
     score_counts=get_score_distribution(session_id)
     create_score_distribution(graph_frame,score_counts)
 
@@ -92,52 +87,60 @@ def run_analysis_view(root, session):
 
     ttk.Label(main_frame,text=f"Total Responses: {feedback_count}",font=("Helvetica", 12)).pack(pady=5)
 
-    # 5. ----- COMMENTS SECTION -----
-    ttk.Label(comments_frame, text="--- Individual Feedback Comments ---",font=("Helvetica", 12, "bold")).pack(anchor="w", pady=5)
+    
+    # 5. Display Comments
+    ttk.Label(main_frame, text="\n--- Individual Feedback Comments ---", font=("Helvetica", 14, "bold")).pack(pady=10)
 
-    canvas = tk.Canvas(comments_frame, height=200)
-    scrollable_frame = ttk.Frame(canvas)
+    # Use a ScrolledText or Treeview for better display of comments
+    comments_frame = ttk.Frame(main_frame)
+    comments_frame.pack(fill='both', expand=True)
 
-    scrollable_frame.bind( "<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+    tree = ttk.Treeview(comments_frame, columns=('Score', 'Comment'), show='headings')
+    tree.heading('Score', text='Score')
+    tree.heading('Comment', text='Comment')
+    tree.column('Score', width=80, anchor='center')
+    tree.column('Comment', width=600, anchor='w')
 
-    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
-    canvas.configure(yscrollcommand=scrollbar.set)
+    for score, comment in comments:
+        tree.insert('', tk.END, values=(score, comment))
 
-    canvas.pack(side="left", fill="both", expand=True)
-    scrollbar.pack(side="right", fill="y")
+    tree.pack(side='left', fill='both', expand=True)
+    
+    # Add a scrollbar
+    vsb = ttk.Scrollbar(comments_frame, orient="vertical", command=tree.yview)
+    vsb.pack(side='right', fill='y')
+    tree.configure(yscrollcommand=vsb.set)
     
 
     for score, comment in comments:
       text = f"Score: {score} | {comment}"
       ttk.Label( scrollable_frame,text=text,wraplength=650,justify="left" ).pack(anchor="w", pady=5)
 
-def create_score_distribution(parent, score_counts):
-    canvas_width = 500
-    canvas_height = 300
-    padding = 40
-    bar_width = 30
-    gap = 10
+def create_score_distribution(frame, scores):
+    canvas = tk.Canvas(frame, width=500, height=250, bg="white", highlightthickness=1)
+    canvas.pack(pady=15)
 
-    canvas = tk.Canvas(parent, width=canvas_width, height=canvas_height, bg="white")
-    canvas.pack(pady=20)
+    canvas.create_text(250, 15, text="Score Distribution", font=("Helvetica", 13, "bold"))
 
-    max_count = max(score_counts.values()) if score_counts else 1
+    max_count = max(scores.values()) if scores else 1
+
+    bar_width = 25
+    spacing = 15
+    x_start = 30
+    y_base = 220
+    max_height = 160
 
     for i in range(1, 11):
-        count = score_counts.get(i, 0)
+        count = scores.get(i, 0)
+        height = (count / max_count) * max_height if max_count else 0
 
-        #  SCALE HEIGHT
-        bar_height = int((count / max_count) * (canvas_height - 2 * padding))
-
-        x1 = padding + (i - 1) * (bar_width + gap)
-        y1 = canvas_height - padding - bar_height
+        x1 = x_start + (i - 1) * (bar_width + spacing)
+        y1 = y_base - height
         x2 = x1 + bar_width
-        y2 = canvas_height - padding
+        y2 = y_base
 
-        canvas.create_rectangle(x1, y1, x2, y2, fill="steelblue")
+        canvas.create_rectangle(x1, y1, x2, y2, fill="#4CAF50")
+        canvas.create_text(x1 + bar_width / 2, y_base + 10, text=str(i), font=("Helvetica", 9))
+        canvas.create_text(x1 + bar_width / 2, y1 - 8, text=str(count), font=("Helvetica", 9))
 
-        # score label (1–10)
-        canvas.create_text(x1 + bar_width / 2, y2 + 12, text=str(i))
 
-        # count label above bar
-        canvas.create_text(x1 + bar_width / 2, y1 - 10, text=str(count))

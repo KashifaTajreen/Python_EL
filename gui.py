@@ -92,7 +92,7 @@ def run_gui(dashboard_root,session):
    #root.mainloop()
     from_window.transient(dashboard_root)
     form_window.grab_set()
-    dashboard_root.wait_window(form_window)'''
+    dashboard_root.wait_window(form_window)
 
     
 

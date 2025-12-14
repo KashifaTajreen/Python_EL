@@ -110,29 +110,33 @@ def run_analysis_view(root, session):
     vsb.pack(side='right', fill='y')
     tree.configure(yscrollcommand=vsb.set)
 
-def create_score_distribution(frame, scores):
-    canvas = tk.Canvas(frame, width=500, height=250, bg="white", highlightthickness=1)
-    canvas.pack(pady=15)
+def create_score_distribution(parent, score_counts):
+    canvas_width = 500
+    canvas_height = 300
+    padding = 40
+    bar_width = 30
+    gap = 10
 
-    canvas.create_text(250, 15, text="Score Distribution", font=("Helvetica", 13, "bold"))
+    canvas = tk.Canvas(parent, width=canvas_width, height=canvas_height, bg="white")
+    canvas.pack(pady=20)
 
-    max_count = max(scores.values()) if scores else 1
-
-    bar_width = 25
-    spacing = 15
-    x_start = 30
-    y_base = 220
-    max_height = 160
+    max_count = max(score_counts.values()) if score_counts else 1
 
     for i in range(1, 11):
-        count = scores.get(i, 0)
-        height = (count / max_count) * max_height if max_count else 0
+        count = score_counts.get(i, 0)
 
-        x1 = x_start + (i - 1) * (bar_width + spacing)
-        y1 = y_base - height
+        #  SCALE HEIGHT
+        bar_height = int((count / max_count) * (canvas_height - 2 * padding))
+
+        x1 = padding + (i - 1) * (bar_width + gap)
+        y1 = canvas_height - padding - bar_height
         x2 = x1 + bar_width
-        y2 = y_base
+        y2 = canvas_height - padding
 
-        canvas.create_rectangle(x1, y1, x2, y2, fill="#4CAF50")
-        canvas.create_text(x1 + bar_width / 2, y_base + 10, text=str(i), font=("Helvetica", 9))
-        canvas.create_text(x1 + bar_width / 2, y1 - 8, text=str(count), font=("Helvetica", 9))
+        canvas.create_rectangle(x1, y1, x2, y2, fill="steelblue")
+
+        # score label (1–10)
+        canvas.create_text(x1 + bar_width / 2, y2 + 12, text=str(i))
+
+        # count label above bar
+        canvas.create_text(x1 + bar_width / 2, y1 - 10, text=str(count))

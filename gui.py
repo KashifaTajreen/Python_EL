@@ -90,9 +90,9 @@ def run_gui(dashboard_root,session):
               font=("Arial", 14, "bold"), command=lambda:submit_feedback(form_window,session,email_entry,score_entry,comment_text_widget)).grid(row=6, column=0, columnspan=2, pady=30, ipadx=10)
 
    #root.mainloop()
-    '''root.transient(parent_root)
-    root.grab_set()
-    parent_root.wait_window(root)'''
+    from_window.transient(parent_root)
+    form_window.grab_set()
+    dashboard_root.wait_window(root)'''
 
     
 

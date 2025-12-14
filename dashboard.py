@@ -20,7 +20,7 @@ def run_dashboard(user_email):
     CARD_BG = "#FFFFFF"       # Input Field/Card Background (Pure White)
     SECONDARY_COLOR = "#E0E0E0" # Secondary Button/Highlight (Slightly darker grey)
 
-    root.configure(bg=BG_COLOR)
+    dashboard_root.configure(bg=BG_COLOR)
 
     sessions = [
         {"name": "AI Ethics 🤖", "date": "2025-11-20", "id": "S001"},
@@ -28,17 +28,17 @@ def run_dashboard(user_email):
         {"name": "Python Workshop 🐍", "date": "2025-11-24", "id": "S003"},
     ]
 
-    tk.Label(root, text=f"Hello, {user_email}!", font=("Arial", 16), 
+    tk.Label(dashboard_root, text=f"Hello, {user_email}!", font=("Arial", 16), 
              bg=BG_COLOR, fg=TEXT_COLOR).pack(pady=(20, 5))
 
-    tk.Label(root, text="Select a Session to Review 🌟", font=("Arial", 22, "bold"), 
+    tk.Label(dashboard_root, text="Select a Session to Review 🌟", font=("Arial", 22, "bold"), 
              bg=BG_COLOR, fg=TEXT_COLOR).pack(pady=10)
     
-    tk.Label(root, text="— Tap a session card to begin —", font=("Arial", 10), 
+    tk.Label(dashboard_root, text="— Tap a session card to begin —", font=("Arial", 10), 
              bg=BG_COLOR, fg=TEXT_COLOR).pack(pady=(0, 20))
 
 
-    frame = tk.Frame(root, bg=BG_COLOR)
+    frame = tk.Frame(dashboard_root, bg=BG_COLOR)
     frame.pack(pady=10)
 
     for i, session in enumerate(sessions):
@@ -57,13 +57,13 @@ def run_dashboard(user_email):
         tk.Button(card, text="Give Feedback 📝", bg=BTN_COLOR, fg=TEXT_COLOR, 
                   activebackground=BTN_COLOR, activeforeground=TEXT_COLOR,
                   font=("Arial", 11, "bold"),
-                  command=lambda s=session: open_feedback_form(root, s)).pack(pady=(10, 5))
+                  command=lambda s=session: open_feedback_form(dashboard_root, s)).pack(pady=(10, 5))
 
         # BUTTON 2: VIEW ANALYSIS (Secondary Grey button)
         tk.Button(card, text="View Analysis 📈", bg=SECONDARY_COLOR, fg=TEXT_COLOR, 
                   activebackground=BTN_COLOR, activeforeground=TEXT_COLOR,
                   font=("Arial", 11, "bold"),
-                  command=lambda s=session: run_analysis_view(root, s)).pack(pady=(5, 10))
+                  command=lambda s=session: run_analysis_view(dashboard_root, s)).pack(pady=(5, 10))
 
-    root.mainloop()
+    dashboard_root.mainloop()
     return True

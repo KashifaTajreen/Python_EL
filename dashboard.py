@@ -8,9 +8,9 @@ def open_feedback_form(dashboard_root, session):
     #root.grab_set()
    # parent_root.wait_window(root)
     # Close dashboard window
-    window=tk.Toplevel(parent)
+    '''window=tk.Toplevel(parent)
     window.title(f"Feedback-{session['name']}")
-    window.geometry("800x600")
+    window.geometry("800x600")'''
     run_gui(dashboard_root,session) # Open the feedback form
     #root.deiconify()
    

@@ -6,16 +6,16 @@ from analysis_view import run_analysis_view # Import the new analysis view
 def open_feedback_form(parent, session):
     #root.withdraw()       # root.transient(parent_root)
     #root.grab_set()
-    parent_root.wait_window(root)
+   # parent_root.wait_window(root)
     # Close dashboard window
     window=tk.Toplevel(parent)
     window.title(f"Feedback-{session['name']}")
     window.geometry("800x600")
-    run_gui(dashboard_root,session) # Open the feedback form
+    run_gui(window,session) # Open the feedback form
     #root.deiconify()
    
-def run_dashboard(user_email):
-    dashboard_root = tk.Toplevel()
+def run_dashboard(parent,user_email):
+    dashboard_root = tk.Toplevel(parent)
     dashboard_root.title("Session Dashboard")
     dashboard_root.geometry("800x600")
     
@@ -34,7 +34,7 @@ def run_dashboard(user_email):
         {"name": "Python Workshop 🐍", "date": "2025-11-24", "id": "S003"},
     ]
 
-    tk.Label(dashboard_root, text=f"Hello, {user_email}!", font=("Arial", 16), 
+    tk.Label(dashboard_root, text=f"Welcome, {user_email}!", font=("Arial", 16), 
              bg=BG_COLOR, fg=TEXT_COLOR).pack(pady=(20, 5))
 
     tk.Label(dashboard_root, text="Select a Session to Review 🌟", font=("Arial", 22, "bold"), 
@@ -63,13 +63,13 @@ def run_dashboard(user_email):
         tk.Button(card, text="Give Feedback 📝", bg=BTN_COLOR, fg=TEXT_COLOR, 
                   activebackground=BTN_COLOR, activeforeground=TEXT_COLOR,
                   font=("Arial", 11, "bold"),
-                  command=lambda s=session: open_feedback_form(dashboard_root, s)).pack(pady=(10, 5))
+                  command=lambda parent=dashboard_root, s=session: open_feedback_form(parent, s)).pack(pady=(10, 5))
 
         # BUTTON 2: VIEW ANALYSIS (Secondary Grey button)
         tk.Button(card, text="View Analysis 📈", bg=SECONDARY_COLOR, fg=TEXT_COLOR, 
                   activebackground=BTN_COLOR, activeforeground=TEXT_COLOR,
                   font=("Arial", 11, "bold"),
-                  command=lambda s=session: run_analysis_view(dashboard_root, s)).pack(pady=(5, 10))
+                  command=lambda parent=dashboard_root, s=session: run_analysis_view(parent, s)).pack(pady=(5, 10))
 
     #dashboard_root.mainloop()
     return True

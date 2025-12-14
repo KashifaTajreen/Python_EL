@@ -102,7 +102,7 @@ def insert_sentiment(session_name, session_ID, overall_sentiment):
 """def get_comments_for_session(session_ID):
     conn = sqlite3.connect("feedback.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT comment FROM feedback WHERE session_id = ?", (session_ID,))
+    cursor.execute("SELECT comment FROM feedback WHERE session_ID = ?", (session_ID,))
     comments = [row[0] for row in cursor.fetchall()]
     conn.close()
     return comments"""
@@ -163,6 +163,7 @@ def run_gui(session):
 
     window.mainloop()
  
+
 
 
 

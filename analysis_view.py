@@ -13,8 +13,8 @@ def run_analysis_view(parent_root, session):
     window.geometry("750x650")
     window.configure(bg=bg_color)
 
-    summary = get_session_summary(session['id'])
-    comments_data = get_comments_for_session(session['id'])
+    summary = get_session_summary(session['ID'])
+    comments_data = get_comments_for_session(session['ID'])
     
     # --- Top Summary Section ---
     summary_frame = tk.Frame(window, bg=bg_color, padx=20, pady=10)

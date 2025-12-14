@@ -92,28 +92,24 @@ def run_analysis_view(root, session):
 
     ttk.Label(main_frame,text=f"Total Responses: {feedback_count}",font=("Helvetica", 12)).pack(pady=5)
 
-    # 5. Display Comments
-    ttk.Label(comments_frame, text="\n--- Individual Feedback Comments ---",wraplength=700, font=("Helvetica", 14, "bold")).pack(anchor='w')
+    # 5. ----- COMMENTS SECTION -----
+    ttk.Label(comments_frame, text="--- Individual Feedback Comments ---",font=("Helvetica", 12, "bold")).pack(anchor="w", pady=5)
 
-    # Use a ScrolledText or Treeview for better display of comments
-    comments_frame = ttk.Frame(main_frame)
-    comments_frame.pack(fill='both', expand=True)
+    canvas = tk.Canvas(comments_frame, height=200)
+    scrollable_frame = ttk.Frame(canvas)
 
-    tree = ttk.Treeview(comments_frame, columns=('Score', 'Comment'), show='headings')
-    tree.heading('Score', text='Score')
-    tree.heading('Comment', text='Comment')
-    tree.column('Score', width=80, anchor='center')
-    tree.column('Comment', width=600, anchor='w')
+    scrollable_frame.bind( "<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+
+    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+    
 
     for score, comment in comments:
-        tree.insert('', tk.END, values=(score, comment))
-
-    tree.pack(side='left', fill='both', expand=True)
-    
-    # Add a scrollbar
-    vsb = ttk.Scrollbar(comments_frame, orient="vertical", command=tree.yview)
-    vsb.pack(side='right', fill='y')
-    tree.configure(yscrollcommand=vsb.set)
+    text = f"Score: {score} | {comment}"
+    ttk.Label( scrollable_frame,text=text,wraplength=650,justify="left" ).pack(anchor="w", pady=5)
 
 def create_score_distribution(parent, score_counts):
     canvas_width = 500

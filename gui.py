@@ -13,7 +13,7 @@ def run_gui(dashboard_root,session):
     text_color = "#4B0082" # Indigo/Dark Purple (Cozy contrast)
     highlight_color = "#E0BBE4" # Lilac/Muted Pink for borders
 
-    form_window.configure(bg=bg_color)
+    root.configure(bg=bg_color)
 
     # Frame for content
     frame = tk.Frame(root, bg=bg_color, bd=2, relief="groove")

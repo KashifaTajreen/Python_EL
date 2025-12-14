@@ -38,6 +38,12 @@ def run_gui(dashboard_root,session):
         entry.grid(row=i+2, column=1, padx=10, pady=10, sticky="w")
         entries[label_text] = entry
 
+    
+    email_entry = entries["Reviewer Name"] 
+    score_entry = entries["Score (1-10)"]  
+    # comment_text_widget is already defined, so it should work. 
+    # If you used a different key/variable name, use that name here!
+
     # For comment field, use a Text widget for better input area
     tk.Label(frame, text="Comment:", font=("Arial", 12, "bold"), 
              bg=bg_color, fg=text_color).grid(row=5, column=0, padx=10, pady=10, sticky="e")

@@ -4,9 +4,9 @@ from analysis_view import run_analysis_view # Import the new analysis view
 
 # Define the function to transition from Dashboard to Feedback Form
 def open_feedback_form(parent, session):
-    #root.withdraw()        root.transient(parent_root)
-        root.grab_set()
-        parent_root.wait_window(root)
+    #root.withdraw()       # root.transient(parent_root)
+    #root.grab_set()
+    parent_root.wait_window(root)
     # Close dashboard window
     window=tk.Toplevel(parent)
     window.title(f"Feedback-{session['name']}")

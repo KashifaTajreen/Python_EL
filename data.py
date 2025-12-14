@@ -22,7 +22,6 @@ def init_sentiment_db():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS feedback (
         session_name TEXT,
-        session_id TEXT,
         overall_sentiment REAL
     )
     """)
@@ -89,32 +88,24 @@ def insert_feedback(reviewer_name, reviewer_ID, score, comment):
     conn.commit()
     conn.close()
 
-def insert_sentiment(session_name, session_id, overall_sentiment):
+def insert_sentiment(session_name, overall_sentiment):
     conn = sqlite3.connect("sentiment.db")
     cursor = conn.cursor()
     cursor.execute("""
-    INSERT INTO feedback (session_name, session_id, overall_sentiment)
-    VALUES (?, ?, ?)
-    """, (session_name, session_id, overall_sentiment))
+    INSERT INTO feedback (session_name, overall_sentiment)
+    VALUES (?, ?)
+    """, (session_name, overall_sentiment))
     conn.commit()
     conn.close()
 
-"""def get_comments_for_session(session_ID):
-    conn = sqlite3.connect("feedback.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT comment FROM feedback WHERE session_ID = ?", (session_ID,))
-    comments = [row[0] for row in cursor.fetchall()]
-    conn.close()
-    return comments"""
-
 # --- New Analysis Functions ---
-def get_session_summary(session_id):
+def get_session_summary(session_name):
     """Calculates the average score and sentiment polarity for a session."""
     conn_feedback = sqlite3.connect("feedback.db")
     cursor_feedback = conn_feedback.cursor()
     
     # Calculate Average Score
-    cursor_feedback.execute("SELECT AVG(score) FROM feedback WHERE session_id = ?", (session_id,))
+    cursor_feedback.execute("SELECT AVG(score) FROM feedback WHERE session_name = ?", (session_name,))
     avg_score = cursor_feedback.fetchone()[0]
     #conn_feedback.close()
 
@@ -122,7 +113,7 @@ def get_session_summary(session_id):
     cursor_sentiment = conn_sentiment.cursor()
     
     # Calculate Average Sentiment
-    cursor_sentiment.execute("SELECT AVG(overall_sentiment) FROM feedback WHERE session_id = ?", (session_id,))
+    cursor_sentiment.execute("SELECT AVG(overall_sentiment) FROM feedback WHERE session_name = ?", (session_name,))
     avg_sentiment = cursor_sentiment.fetchone()[0]
     #conn_sentiment.close()
 
@@ -134,11 +125,11 @@ def get_session_summary(session_id):
         'avg_sentiment': avg_sentiment if avg_sentiment is not None else 0.0
     }
 
-def get_comments_for_session(session_id):
+def get_comments_for_session(session_name):
     """Retrieves all comments and scores for a session."""
     conn = sqlite3.connect("feedback.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT score, comment FROM feedback WHERE session_id = ?", (session_id,))
+    cursor.execute("SELECT score, comment FROM feedback WHERE session_name = ?", (session_name,))
     # Returns a list of tuples: [(score1, comment1), (score2, comment2), ...]
     comments_and_scores = cursor.fetchall() 
     conn.close()
@@ -163,6 +154,7 @@ def run_gui(session):
 
     window.mainloop()
  
+
 
 
 

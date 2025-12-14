@@ -40,7 +40,7 @@ def run_analysis_view(root, session):
 
     # 2. Create Window
     analysis_window = tk.Toplevel(root)
-    analysis_window.title(f"Analysis for Session: {session_id}")
+    analysis_window.title(f"Analysis for Session: {session_name}")
     analysis_window.geometry("800x700")
 
     main_frame = ttk.Frame(analysis_window, padding="10")

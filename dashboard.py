@@ -63,13 +63,13 @@ def run_dashboard(parent,user_email):
         tk.Button(card, text="Give Feedback 📝", bg=BTN_COLOR, fg=TEXT_COLOR, 
                   activebackground=BTN_COLOR, activeforeground=TEXT_COLOR,
                   font=("Arial", 11, "bold"),
-                  command=lambda parent=dashboard_root, s=session: open_feedback_form(parent, s)).pack(pady=(10, 5))
+                  command=lambda s=session: open_feedback_form(dashboard_root, s)).pack(pady=(10, 5))
 
         # BUTTON 2: VIEW ANALYSIS (Secondary Grey button)
         tk.Button(card, text="View Analysis 📈", bg=SECONDARY_COLOR, fg=TEXT_COLOR, 
                   activebackground=BTN_COLOR, activeforeground=TEXT_COLOR,
                   font=("Arial", 11, "bold"),
-                  command=lambda parent=dashboard_root, s=session: run_analysis_view(parent, s)).pack(pady=(5, 10))
+                  command=lambda s=session: run_analysis_view(dashboard_root, s)).pack(pady=(5, 10))
 
     #dashboard_root.mainloop()
     return True

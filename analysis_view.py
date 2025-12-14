@@ -47,8 +47,13 @@ def run_analysis_view(root, session):
 
     main_frame = ttk.Frame(analysis_window, padding="10")
     main_frame.pack(fill='both', expand=True)
+    graph_frame = ttk.Frame(main_frame)
+    graph_frame.pack(fill="x", pady=10)
+
+    comments_frame = ttk.Frame(main_frame)
+    comments_frame.pack(fill="both", expand=True, pady=10)
     score_counts=get_score_distribution(session_id)
-    create_score_distribution(main_frame,score_counts)
+    create_score_distribution(graph_frame,score_counts)
 
     # 3. Display Summary (Text)
     ttk.Label(main_frame, text=f"Session ID: {session_id}\n Session Name: {session_name}", font=("Helvetica", 16, "bold")).pack(pady=5)
@@ -88,7 +93,7 @@ def run_analysis_view(root, session):
     ttk.Label(main_frame,text=f"Total Responses: {feedback_count}",font=("Helvetica", 12)).pack(pady=5)
 
     # 5. Display Comments
-    ttk.Label(main_frame, text="\n--- Individual Feedback Comments ---", font=("Helvetica", 14, "bold")).pack(pady=10)
+    ttk.Label(comments_frame, text="\n--- Individual Feedback Comments ---",wraplength=700, font=("Helvetica", 14, "bold")).pack(anchor='w')
 
     # Use a ScrolledText or Treeview for better display of comments
     comments_frame = ttk.Frame(main_frame)

@@ -35,6 +35,7 @@ def run_analysis_view(root, session):
     
     # 1. Fetch Data
     session_id=session['id']
+    session_name=session['name']
     summary = get_session_summary(session_id)
     comments = get_comments_for_session(session_id)
 
